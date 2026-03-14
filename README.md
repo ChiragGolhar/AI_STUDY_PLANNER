@@ -1,33 +1,29 @@
-# AI_STUDY_PLANNER
-# AI Study Planner
+# n8n AI Study Planner
 
-This project is a simple AI Study Planner web application.
+This project is a Study Planner web application that generates a study plan
+based on subjects, difficulty, interesting subjects, and lengthy topics.
 
-Features:
-- Generate study plan based on subjects
-- Difficulty based hour distribution
-- Interesting subject adjustment
-- Lengthy subject prioritization
+The system can be automated using n8n workflows to trigger study plan
+generation and notifications.
+
+Features
+- Subject based study planning
+- Difficulty based hour allocation
+- Interesting subject prioritization
 - Clean dashboard interface
+- Automation ready for n8n workflows
 
-Technologies Used:
+Technologies
 - Python
 - Flask
 - HTML
 - CSS
 - JavaScript
+- n8n (workflow automation)
 
-How to Run:
-
-1. Install Python
-2. Install Flask
-
-pip install flask flask-cors
-
-3. Run the backend
-
-python app.py
-
-4. Open browser
-
-http://127.0.0.1:5000
+How it works
+1. User enters subjects and study hours.
+2. The system distributes hours intelligently.
+3. Difficult subjects get more time.
+4. Interesting subjects get balanced study time.
+5. The study plan is generated instantly.
