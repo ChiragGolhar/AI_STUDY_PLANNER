@@ -1,30 +1,166 @@
-let plan=data.plan
-let timetable=data.timetable
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Study Planner</title>
 
-let output="<h3>Study Plan</h3>"
+<style>
 
-plan.forEach(function(item){
+body{
+margin:0;
+font-family:Arial;
+background:url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f");
+background-size:cover;
+background-position:center;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.container{
+background:rgba(255,255,255,0.9);
+padding:30px;
+border-radius:12px;
+width:420px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+h1{
+color:#333;
+}
+
+input{
+width:90%;
+padding:12px;
+margin:8px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:15px;
+}
+
+button{
+background:#4CAF50;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:6px;
+cursor:pointer;
+font-size:16px;
+margin-top:10px;
+}
+
+button:hover{
+background:#45a049;
+}
+
+.card{
+background:#f4f4f4;
+margin-top:10px;
+padding:12px;
+border-radius:8px;
+display:flex;
+align-items:center;
+gap:10px;
+justify-content:space-between;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>AI Study Planner</h1>
+
+<input id="subjects" placeholder="Subjects (Math,Physics,Python)">
+<input id="hours" type="number" placeholder="Total Study Hours">
+
+<input id="difficult" placeholder="Difficult Subject">
+<input id="interesting" placeholder="Interesting Subject">
+<input id="lengthy" placeholder="Lengthy Subject">
+
+<button onclick="generate()">Generate Plan</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function getImage(subject){
+
+subject=subject.toLowerCase()
+
+if(subject.includes("math"))
+return "https://cdn-icons-png.flaticon.com/512/2103/2103633.png"
+
+if(subject.includes("physics"))
+return "https://cdn-icons-png.flaticon.com/512/3468/3468377.png"
+
+if(subject.includes("python"))
+return "https://cdn-icons-png.flaticon.com/512/5968/5968350.png"
+
+return "https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
+
+}
+
+function generate(){
+
+let subjects=document.getElementById("subjects").value.split(",")
+let hours=parseInt(document.getElementById("hours").value)
+
+let difficult=document.getElementById("difficult").value.toLowerCase()
+let interesting=document.getElementById("interesting").value.toLowerCase()
+let lengthy=document.getElementById("lengthy").value.toLowerCase()
+
+let perSubject=Math.max(1,Math.floor(hours/subjects.length))
+
+let output=""
+
+subjects.forEach(function(sub){
+
+sub=sub.trim()
+
+let extra=0
+
+if(sub.toLowerCase()==difficult)
+extra=2
+
+if(sub.toLowerCase()==lengthy)
+extra+=1
+
+if(sub.toLowerCase()==interesting)
+extra-=1
+
+let total=perSubject+extra
+
+if(total<1) total=1
+
+let img=getImage(sub)
 
 output+=`
+
 <div class="card">
-<span>${item.subject}</span>
-<span>${item.hours} hrs</span>
+
+<img src="${img}" width="40">
+
+<b>${sub}</b>
+
+<span>${total} hrs</span>
+
 </div>
-`
 
-})
-
-output+="<h3>Daily Timetable</h3>"
-
-timetable.forEach(function(item){
-
-output+=`
-<div class="card">
-<span>${item.subject}</span>
-<span>${item.time}</span>
-</div>
 `
 
 })
 
 document.getElementById("result").innerHTML=output
+
+}
+
+</script>
+
+</body>
+</html>

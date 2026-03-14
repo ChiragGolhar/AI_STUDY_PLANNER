@@ -9,57 +9,20 @@ def study_plan():
 
     data = request.json
 
-    subjects = data["subjects"]
-    total_hours = int(data["hours"])
-    hard = data["hard"].lower()
-    big = data["big"].lower()
+    subjects = data["subjects"].split(",")
+    hours = int(data["hours"])
 
-    subjects_list = subjects.replace(",", " ").split()
-
-    weights = {}
-
-    for s in subjects_list:
-
-        weight = 1
-
-        if s.lower() == hard:
-            weight += 2
-
-        if s.lower() == big:
-            weight += 1
-
-        weights[s] = weight
-
-    total_weight = sum(weights.values())
+    per_subject = max(1, hours // len(subjects))
 
     plan = []
 
-    for subject in subjects_list:
-
-        hours = round((weights[subject] / total_weight) * total_hours, 2)
-
+    for s in subjects:
         plan.append({
-            "subject": subject,
-            "hours": hours
+            "subject": s.strip(),
+            "hours": per_subject
         })
 
-    # Create timetable
-    timetable = []
-    start_time = 9
+    return jsonify(plan)
 
-    for item in plan:
-
-        timetable.append({
-            "subject": item["subject"],
-            "time": f"{start_time}:00 - {start_time + int(item['hours'])}:00"
-        })
-
-        start_time += int(item["hours"])
-
-    return jsonify({
-        "plan": plan,
-        "timetable": timetable
-    })
-
-
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
