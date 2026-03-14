@@ -1,0 +1,30 @@
+let plan=data.plan
+let timetable=data.timetable
+
+let output="<h3>Study Plan</h3>"
+
+plan.forEach(function(item){
+
+output+=`
+<div class="card">
+<span>${item.subject}</span>
+<span>${item.hours} hrs</span>
+</div>
+`
+
+})
+
+output+="<h3>Daily Timetable</h3>"
+
+timetable.forEach(function(item){
+
+output+=`
+<div class="card">
+<span>${item.subject}</span>
+<span>${item.time}</span>
+</div>
+`
+
+})
+
+document.getElementById("result").innerHTML=output
